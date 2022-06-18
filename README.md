@@ -48,41 +48,68 @@ PWM Working Principle - Pulse Width Modulation How It Works
 
 
 ### PROGRAM 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+ ```c++
+ #include <AFMotor.h>
 
+AF_DCMotor motor(4);// number of motor connected with shield
+
+void setup() {
+  Serial.begin(9600);           // set up Serial library at 9600 bps
+  Serial.println("Motor test!");
+
+  // turn on motor
+  motor.setSpeed(200);
  
+  motor.run(RELEASE);
+}
+
+void loop() {
+  uint8_t i;
+  
+  Serial.print("tick");
+  
+  motor.run(FORWARD);
+  for (i=0; i<255; i++) {
+    motor.setSpeed(i);  
+    delay(10);
+ }
  
+  for (i=255; i!=0; i--) {
+    motor.setSpeed(i);  
+    delay(10);
+ }
+  
+  Serial.print("tock");
+
+  motor.run(BACKWARD);
+  for (i=0; i<255; i++) {
+    motor.setSpeed(i);  
+    delay(10);
+ }
+ 
+  for (i=255; i!=0; i--) {
+    motor.setSpeed(i);  
+    delay(10);
+ }
+  
+
+  Serial.print("tech");
+  motor.run(RELEASE);
+  delay(1000);
+}
+ ```
+ 
+ ### OUTPUT:
+ ![WhatsApp Image 2022-06-18 at 8 43 18 AM](https://user-images.githubusercontent.com/75234588/174420845-5fdcea04-2d3a-48a0-8d25-a3883bb584f5.jpeg)
 
 
 
 
+![WhatsApp Image 2022-06-18 at 8 43 17 AM (1)](https://user-images.githubusercontent.com/75234588/174420846-d5c30a82-d192-4ae6-835a-d53dfbc5a0e8.jpeg)
 
 
 
+![WhatsApp Image 2022-06-18 at 8 43 17 AM](https://user-images.githubusercontent.com/75234588/174420847-9f413c60-6608-4846-b902-51ef93cee13b.jpeg)
 
-
-
-
-
-
-
-### RESULTS : Arduino uno is interfaced with FSR and output values are indicated on a graph.
+### RESULTS : 
+Arduino uno is interfaced with FSR and output values are indicated on a graph.
